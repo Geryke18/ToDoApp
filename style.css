@@ -1,0 +1,75 @@
+body {
+  font-size: 150%;
+  font-family: "Arial black";
+  background-color:rgb(31, 31, 31);
+  color:white;
+  padding: 50px;
+  margin: 0px;
+  background-image: linear-gradient(150deg, #7effee 5%, #1135fde0 30%, #10dfb2 90%);
+  background-attachment: fixed;
+  opacity: 0.9;
+  text-shadow: 0 0 3px white, 0 0 10px #0066ff, 0 0 15px blue, 0 0 20px blue;
+}
+
+h1 {
+  margin: 0px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(100, 100, 255);
+  opacity: 0.6; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: rgb(100, 100, 255);
+  opacity: 0.6;
+}
+
+.Done {
+  text-decoration: line-through;
+}
+
+button {
+  color: white;
+  background: none;
+  border-color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 15px;
+  font-weight: bold;
+  text-shadow: 0 0 3px white, 0 0 10px #0066ff, 0 0 15px blue, 0 0 20px blue;
+}
+
+.glow1 {
+  -webkit-animation: glow1 1s ease-in-out infinite alternate;
+  -moz-animation: glow1 1s ease-in-out infinite alternate;
+  animation: glow1 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow1 {
+  from {
+    text-shadow: 0 0 3px white, 0 0 10px #0066ff, 0 0 15px blue, 0 0 20px blue;
+  }
+  to {
+    text-shadow: 0 0 8px white, 0 0 20px #0066ff, 0 0 30px blue, 0 0 40px blue;
+  }
+}
+
+div {
+  box-shadow: 0 0 15px white;
+  padding: 10px;
+}
+
+.todoText {
+  border-radius: 15px;
+}
+
+input {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-color: white;
+  color: blue;
+}

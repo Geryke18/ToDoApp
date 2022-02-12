@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="It is just a 'To Do' application">
+    <meta name="content-language" content="english">
+    <title>To Do App</title>
+    <link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+<h1>To Do List App</h1>
+<div id="NewToDo">
+    <label for="input">New To Do</label><br>
+    <input id="input" type="text" name="input" placeholder="Write here your task">
+    <button id="add">Add</button>
+</div>
+<br>
+
+<div>To Do
+    <table id="todo">
+    </table>
+</div>
+<br>
+
+<div>Done
+    <table id="done">
+    </table>
+</div>
+
+    <script>
+        let addButton = document.getElementById('add');
+        let tableToDo = document.getElementById("todo");
+        let tableDone = document.getElementById("done");
+
+        addButton.onclick =  function myFunction() {
+            var row = tableToDo.insertRow(tableToDo.length+1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML = '<div class="glow1 todoText" draggable="true">' + document.getElementById("input").value + '</div>';
+            cell2.innerHTML = '<button class="doneBtn" type="text" onclick="Done(this)">Done</button>'
+            cell3.innerHTML = '<button class="delete" type="text" onclick="DeleteRow(this)">Remove</button>';
+        }
+
+        function DeleteRow(o) {
+            var p = o.parentNode.parentNode;
+            p.parentNode.removeChild(p);
+        }
+
+        function Done(o) {
+            var row = tableDone.insertRow(tableDone.length+1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = o.parentNode.parentNode.firstChild.textContent;
+            cell1.classList.add("Done");
+            cell2.innerHTML = '<button class="delete" type="text" onclick="DeleteRow(this)">Remove</button>';
+            var p=o.parentNode.parentNode;
+            p.parentNode.removeChild(p);
+        }
+
+    </script>
+
+</body>
+</html>
