@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="UTF-8">
     <meta name="description" content="It is just a 'To Do' application">
     <meta name="content-language" content="english">
     <title>To Do App</title>
     <link href="style.css" rel="stylesheet">
-
 </head>
 <body>
 <h1>To Do List App</h1>
@@ -30,24 +28,43 @@
 </div>
 
     <script>
+
         let addButton = document.getElementById('add');
         let tableToDo = document.getElementById("todo");
         let tableDone = document.getElementById("done");
 
-        addButton.onclick =  function myFunction() {
+        function AddDone(textOfToDo) {
+            var row = tableDone.insertRow(tableDone.length+1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = textOfToDo;
+            cell1.classList.add("Done");
+            cell2.innerHTML = '<button class="delete" type="text" onclick="delDone(this)">Remove</button>';
+        };
+
+        function AddToDo(textOfToDo) {
             var row = tableToDo.insertRow(tableToDo.length+1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
-            cell1.innerHTML = '<div class="glow1 todoText" draggable="true">' + document.getElementById("input").value + '</div>';
-            cell2.innerHTML = '<button class="doneBtn" type="text" onclick="Done(this)">Done</button>'
-            cell3.innerHTML = '<button class="delete" type="text" onclick="DeleteRow(this)">Remove</button>';
-        }
+            cell1.innerHTML = '<div class="glow1 todoText" draggable="true">' + textOfToDo + '</div>';
+            cell2.innerHTML = '<button class="doneBtn" type="text" onclick="doneTodo(this)">Done</button>'
+            cell3.innerHTML = '<button class="delete" type="text" onclick="delTodo(this)">Remove</button>';
+        };
 
-        function DeleteRow(o) {
-            var p = o.parentNode.parentNode;
-            p.parentNode.removeChild(p);
-        }
+        async function getData() {
+            tableToDo.innerHTML = "";
+            tableDone.innerHTML = "";
+            let response = await fetch('http://' + location.host + '/getdata');
+            let myDatas = await response.json();
+            myDatas.todos.forEach(element => {
+                AddToDo(element)
+            });
+            myDatas.dones.forEach(element => {
+                AddDone(element)
+            });
+        };
+        getData();
 
         function Done(o) {
             var row = tableDone.insertRow(tableDone.length+1);
@@ -55,10 +72,60 @@
             var cell2 = row.insertCell(1);
             cell1.innerHTML = o.parentNode.parentNode.firstChild.textContent;
             cell1.classList.add("Done");
-            cell2.innerHTML = '<button class="delete" type="text" onclick="DeleteRow(this)">Remove</button>';
+            cell2.innerHTML = '<button class="delete" type="text" onclick="delDone(this)">Remove</button>';
             var p=o.parentNode.parentNode;
             p.parentNode.removeChild(p);
         }
+
+        async function AddToDb(x) {
+            //console.log(x);
+            let response = await fetch('http://' + location.host + '/addtodo', {
+            method: 'POST',
+            body: x, // string or object
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+            });
+            getData();
+        }
+
+        async function delTodo(o) {
+            let x = o.parentNode.parentNode.firstChild.textContent;
+            let response = await fetch('http://' + location.host + '/deltodo', {
+            method: 'POST',
+            body: x, // string or object
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+            });
+            getData();
+        }
+
+        async function doneTodo(o) {
+            let x = o.parentNode.parentNode.firstChild.textContent;
+            let response = await fetch('http://' + location.host + '/donetodo', {
+            method: 'POST',
+            body: x, // string or object
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+            });
+            getData();
+        }
+
+        async function delDone(o) {
+            let x = o.parentNode.parentNode.firstChild.textContent;
+            let response = await fetch('http://' + location.host + '/deldone', {
+            method: 'POST',
+            body: x, // string or object
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+            });
+            getData();
+        }
+
+        addButton.addEventListener("click",  function(){AddToDb(document.getElementById("input").value)});
 
     </script>
 
