@@ -1,0 +1,27 @@
+{
+  "name": "todoapp",
+  "version": "1.0.0",
+  "description": "Practice some nodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Geryke18/ToDoApp.git"
+  },
+  "keywords": [
+    "toDo",
+    "app"
+  ],
+  "author": "Gergő Nagy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Geryke18/ToDoApp/issues"
+  },
+  "homepage": "https://github.com/Geryke18/ToDoApp#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "formidable": "^2.1.1"
+  }
+}
